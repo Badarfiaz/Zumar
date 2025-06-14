@@ -3,78 +3,55 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1C1C1E] text-[#E5E5E5] pt-12 pb-8 mt-20 font-serif">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer className="bg-[#FAFAF9] text-[#2D2D2D] pt-16 pb-10 font-serif border-t border-[#EAEAEA]">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Brand Info */}
         <div>
-          <h2 className="text-3xl font-bold mb-5 tracking-wide text-[#D4AF37]">
-            Shirtopia
+          <h2 className="text-3xl font-bold mb-4 tracking-tight text-emerald-500">
+            ElegaWear
           </h2>
-          <p className="text-[#D8CAB8] text-sm md:text-base">
-            Where timeless style meets effortless comfort. Explore our elevated essentials crafted with elegance.
+          <p className="text-[#555] text-sm md:text-base leading-relaxed">
+            Where grace meets craftsmanship. Explore our curated earrings designed for timeless allure and elegance.
           </p>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h3 className="text-lg font-semibold mb-5 border-b border-[#D4AF37] pb-2">
+          <h3 className="text-lg font-semibold mb-4 border-b border-emerald-400 pb-2">
             Quick Links
           </h3>
-          <ul className="space-y-3 text-[#CFCFCF] text-sm md:text-base">
+          <ul className="space-y-3 text-[#444] text-sm md:text-base">
             <li>
-              <a href="/" className="hover:text-[#D4AF37] transition duration-300">Home</a>
+              <a href="/" className="hover:text-emerald-500 transition duration-300">Home</a>
             </li>
             <li>
-              <a href="/shop" className="hover:text-[#D4AF37] transition duration-300">Shop</a>
+              <a href="/shop" className="hover:text-emerald-500 transition duration-300">Shop</a>
             </li>
             <li>
-              <a href="/about" className="hover:text-[#D4AF37] transition duration-300">About Us</a>
+              <a href="/about" className="hover:text-emerald-500 transition duration-300">About Us</a>
             </li>
             <li>
-              <a href="/contact" className="hover:text-[#D4AF37] transition duration-300">Contact</a>
+              <a href="/contact" className="hover:text-emerald-500 transition duration-300">Contact</a>
             </li>
           </ul>
         </div>
 
-        {/* Subscribe */}
-        <div>
-          <h3 className="text-lg font-semibold mb-5 border-b border-[#D4AF37] pb-2">
-            Subscribe
-          </h3>
-          <p className="text-[#CFCFCF] text-sm mb-5">
-            Join our list for refined releases, private sales, and tailored updates.
-          </p>
-          <form className="flex">
-            <input
-              type="email"
-              placeholder="Your email"
-              className="px-4 py-2 rounded-l-full w-full text-[#1C1C1E] bg-[#F5F5F5] font-medium focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="bg-[#D4AF37] px-6 py-2 rounded-r-full font-semibold text-[#1C1C1E] hover:bg-[#E0C97D] transition duration-300"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-
         {/* Socials */}
         <div>
-          <h3 className="text-lg font-semibold mb-5 border-b border-[#D4AF37] pb-2">
-            Follow Us
+          <h3 className="text-lg font-semibold mb-4 border-b border-emerald-400 pb-2">
+            Connect
           </h3>
-          <div className="flex space-x-6 text-[#BEBEBE] text-xl">
-            <a href="#" className="hover:text-[#D4AF37] transition duration-300" aria-label="Facebook">
+          <div className="flex space-x-5 text-[#555] text-xl">
+            <a href="#" className="hover:text-emerald-500 transition duration-300" aria-label="Facebook">
               <FaFacebookF />
             </a>
-            <a href="#" className="hover:text-[#D4AF37] transition duration-300" aria-label="Twitter">
+            <a href="#" className="hover:text-emerald-500 transition duration-300" aria-label="Twitter">
               <FaTwitter />
             </a>
-            <a href="#" className="hover:text-[#D4AF37] transition duration-300" aria-label="Instagram">
+            <a href="#" className="hover:text-emerald-500 transition duration-300" aria-label="Instagram">
               <FaInstagram />
             </a>
-            <a href="#" className="hover:text-[#D4AF37] transition duration-300" aria-label="Github">
+            <a href="#" className="hover:text-emerald-500 transition duration-300" aria-label="GitHub">
               <FaGithub />
             </a>
           </div>
@@ -82,8 +59,8 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="mt-14 border-t border-[#3A3A3C] pt-6 text-center text-[#A6A6A6] text-sm select-none">
-        &copy; {new Date().getFullYear()} Shirtopia. All rights reserved.
+      <div className="mt-12 border-t border-gray-200 pt-6 text-center text-[#888] text-sm">
+        &copy; {new Date().getFullYear()} ElegaWear. All rights reserved.
       </div>
     </footer>
   );

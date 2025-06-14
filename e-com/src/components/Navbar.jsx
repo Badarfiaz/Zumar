@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import {
+  ShoppingCartIcon,
+  Bars3Icon,
+  XMarkIcon,
+  UserIcon,
+} from '@heroicons/react/24/outline';
+import { useCart } from '../context/CartContext';
 
-// Confirmation modal component
 const ConfirmationModal = ({ message, onConfirm, onCancel }) => (
-  <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-    <div className="bg-[#1C1C1E] p-6 rounded-lg max-w-sm w-full text-white shadow-xl border border-[#3A3A3C]">
-      <p className="mb-4">{message}</p>
-      <div className="flex justify-end space-x-4">
+  <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm">
+    <div className="bg-[#1f2937] border border-gray-600 text-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
+      <p className="mb-4 text-lg">{message}</p>
+      <div className="flex justify-end space-x-3">
         <button
           onClick={onCancel}
-          className="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition"
+          className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition"
         >
           Cancel
         </button>
         <button
           onClick={onConfirm}
-          className="px-4 py-2 bg-[#D4AF37] text-black font-semibold rounded hover:bg-[#e0c97d] transition"
+          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition"
         >
           Yes
         </button>
@@ -27,12 +32,12 @@ const ConfirmationModal = ({ message, onConfirm, onCancel }) => (
 );
 
 function Navbar() {
-  const [showSearch, setShowSearch] = useState(false);
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { cartItems } = useCart();
   const navigate = useNavigate();
 
-  // Monitor Firebase user state
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -41,15 +46,9 @@ function Navbar() {
     return () => unsubscribe();
   }, []);
 
-  // Sign out logic
   const handleLogout = async () => {
-    const auth = getAuth();
-    await signOut(auth);
+    await signOut(getAuth());
     navigate("/Sign");
-  };
-
-  const handleSignOutClick = () => {
-    setShowModal(true);
   };
 
   const confirmSignOut = async () => {
@@ -57,57 +56,80 @@ function Navbar() {
     await handleLogout();
   };
 
+  const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
+  const closeSidebar = () => setIsSidebarOpen(false);
+
   return (
-    <nav className="bg-[#1C1C1E] shadow-md px-6 py-4 flex justify-between items-center border-b border-[#3A3A3C]">
-      <div className="flex items-center space-x-10">
-        <div className="text-3xl font-serif font-bold text-[#D4AF37] cursor-pointer hover:text-[#E0C97D] transition">
-          <Link to="/">Shirtopia</Link>
+    <>
+      <nav className="bg-[#111827] text-white px-6 py-4 shadow-md flex justify-between items-center">
+        <div className="flex items-center space-x-6">
+          <button onClick={toggleSidebar} className="md:hidden">
+            <Bars3Icon className="h-6 w-6 text-emerald-400" />
+          </button>
+          <Link to="/" className="text-2xl font-bold font-mono text-emerald-400 hover:text-emerald-300 transition">
+            Shirtopia
+          </Link>
         </div>
 
-        <ul className="hidden md:flex space-x-8 text-[#E5E5E5] font-serif tracking-wider text-lg">
-          <li className="hover:text-[#D4AF37] cursor-pointer transition">
-            <Link to="/home">Home</Link>
-          </li>
-          <li className="hover:text-[#D4AF37] cursor-pointer transition">
-            <Link to="/about">About</Link>
-          </li>
-          <li className="hover:text-[#D4AF37] cursor-pointer transition">
-            <Link to="/contact">Contact</Link>
-          </li>
-          <li className="hover:text-[#D4AF37] cursor-pointer transition">
-            <Link to="/shop">Shop Now</Link>
-          </li>
-          <li className="hover:text-[#D4AF37] cursor-pointer transition">
+        <ul className="hidden md:flex space-x-6 text-sm font-medium items-center">
+          <li><Link to="/home" className="hover:text-emerald-400 transition">Home</Link></li>
+          <li><Link to="/t" className="hover:text-emerald-400 transition">T-Shirts</Link></li>
+          <li><Link to="/Polo" className="hover:text-emerald-400 transition">Polos</Link></li>
+          <li><Link to="/shop" className="hover:text-emerald-400 transition">Shop</Link></li>
+          <li>
             {user ? (
-              <button onClick={handleSignOutClick} className="focus:outline-none">
-                Sign Out
-              </button>
+              <button onClick={() => setShowModal(true)} className="hover:text-emerald-400 transition">Sign Out</button>
             ) : (
-              <Link to="/Sign">Sign Up</Link>
+              <Link to="/Sign" className="hover:text-emerald-400 transition">Sign Up</Link>
             )}
           </li>
         </ul>
-      </div>
 
-      <div className="flex items-center space-x-5 relative">
-        <div
-          className="flex items-center"
-          onMouseEnter={() => setShowSearch(true)}
-          onMouseLeave={() => setShowSearch(false)}
-        >
-          <MagnifyingGlassIcon className="h-6 w-6 text-[#D4AF37] hover:text-[#E0C97D] cursor-pointer transition" />
-          {showSearch && (
-            <input
-              type="text"
-              placeholder="Search..."
-              className="ml-3 border border-[#D4AF37] bg-[#2C2C2E] text-[#F5F5F5] font-serif rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] transition duration-200"
-              autoFocus
-            />
-          )}
+        <div className="flex items-center space-x-4">
+          <Link to="/user">
+            <UserIcon className="h-6 w-6 text-emerald-400 hover:text-emerald-300 transition" />
+          </Link>
+          <Link to="/cart" className="relative">
+            <ShoppingCartIcon className="h-6 w-6 text-emerald-400 hover:text-emerald-300 transition" />
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-xs text-white w-5 h-5 rounded-full flex items-center justify-center">
+                {cartItems.length}
+              </span>
+            )}
+          </Link>
         </div>
-        <button aria-label="View cart" className="relative">
-          <ShoppingCartIcon className="h-6 w-6 text-[#D4AF37] hover:text-[#E0C97D] cursor-pointer transition" />
-        </button>
+      </nav>
+
+      {/* Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 z-40 md:hidden" onClick={closeSidebar} />
+      )}
+
+      {/* Sidebar */}
+      <div className={`fixed top-0 left-0 w-64 h-full z-50 bg-[#111827] backdrop-blur-md border-r border-gray-700 shadow-lg transform transition-transform duration-300 md:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="flex items-center justify-between p-4 border-b border-gray-700">
+          <h2 className="text-xl font-mono font-bold text-emerald-400">Shirtopia</h2>
+          <button onClick={toggleSidebar}>
+            <XMarkIcon className="h-6 w-6 text-white" />
+          </button>
+        </div>
+        <ul className="flex flex-col space-y-4 text-white text-base p-5">
+          <li><Link to="/home" onClick={closeSidebar}>Home</Link></li>
+        
+          <li><Link to="/t" onClick={closeSidebar}>T-Shirts</Link></li>
+          <li><Link to="/Polo" onClick={closeSidebar}>Polos</Link></li>
+          <li><Link to="/shop" onClick={closeSidebar}>Shop</Link></li>
+          <li><Link to="/cart" onClick={closeSidebar}>Cart</Link></li>
+          <li>
+            {user ? (
+              <button onClick={() => { closeSidebar(); setShowModal(true); }}>
+                Sign Out
+              </button>
+            ) : (
+              <Link to="/Sign" onClick={closeSidebar}>Sign Up</Link>
+            )}
+          </li>
+        </ul>
       </div>
 
       {showModal && (
@@ -117,7 +139,7 @@ function Navbar() {
           onCancel={() => setShowModal(false)}
         />
       )}
-    </nav>
+    </>
   );
 }
 

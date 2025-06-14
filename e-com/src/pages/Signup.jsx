@@ -9,19 +9,19 @@ import Footer from "../components/Footer";
 
 // Styled Modal
 const ConfirmationModal = ({ message, onConfirm, onCancel }) => (
-  <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 font-serif">
-    <div className="bg-[#1C1C1E] border border-[#3A3A3C] text-[#E5E5E5] p-6 rounded-2xl max-w-sm w-full shadow-xl">
-      <p className="mb-6 text-center">{message}</p>
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-serif">
+    <div className="bg-white border border-gray-300 text-[#2D2D2D] p-6 rounded-2xl max-w-sm w-full shadow-xl">
+      <p className="mb-6 text-center text-lg">{message}</p>
       <div className="flex justify-end gap-4">
         <button
           onClick={onCancel}
-          className="px-4 py-2 rounded-md bg-[#3A3A3C] hover:bg-[#555] transition"
+          className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 transition"
         >
           Cancel
         </button>
         <button
           onClick={onConfirm}
-          className="px-4 py-2 bg-[#D4AF37] text-[#1C1C1E] rounded-md font-semibold hover:bg-[#e0c97d] transition"
+          className="px-4 py-2 bg-emerald-500 text-white rounded-md font-semibold hover:bg-emerald-600 transition"
         >
           OK
         </button>
@@ -52,7 +52,7 @@ const Signup = () => {
       } else {
         await signInWithEmailAndPassword(auth, email, password);
         sessionStorage.setItem("user", JSON.stringify({ email }));
-        setModalMessage("Account Logged in!");
+        setModalMessage("Logged In Successfully!");
       }
 
       setEmail("");
@@ -70,17 +70,15 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen justify-between bg-[#1C1C1E] text-[#E5E5E5] font-serif">
-      {/* Form Container */}
+    <div className="flex flex-col min-h-screen justify-between bg-[#FAFAF9] text-[#2D2D2D] font-serif">
       <div className="flex flex-col items-center justify-center px-4 py-20">
-        <div className="bg-[#2A2A2D] p-8 rounded-2xl shadow-2xl w-full max-w-md">
-          {/* Toggle Buttons */}
+        <div className="bg-white border border-gray-200 p-8 rounded-2xl shadow-xl w-full max-w-md">
           <div className="flex justify-center mb-6">
             <button
               className={`px-6 py-2 font-semibold rounded-l-full transition duration-300 ${
                 isSignUp
-                  ? "bg-[#D4AF37] text-[#1C1C1E]"
-                  : "bg-[#3A3A3C] text-[#A6A6A6]"
+                  ? "bg-emerald-500 text-white"
+                  : "bg-gray-200 text-gray-600"
               }`}
               onClick={() => setIsSignUp(true)}
             >
@@ -89,8 +87,8 @@ const Signup = () => {
             <button
               className={`px-6 py-2 font-semibold rounded-r-full transition duration-300 ${
                 !isSignUp
-                  ? "bg-[#D4AF37] text-[#1C1C1E]"
-                  : "bg-[#3A3A3C] text-[#A6A6A6]"
+                  ? "bg-emerald-500 text-white"
+                  : "bg-gray-200 text-gray-600"
               }`}
               onClick={() => setIsSignUp(false)}
             >
@@ -98,7 +96,6 @@ const Signup = () => {
             </button>
           </div>
 
-          {/* Form */}
           <form className="space-y-4" onSubmit={handleSubmit}>
             {isSignUp && (
               <input
@@ -106,7 +103,7 @@ const Signup = () => {
                 placeholder="Full Name"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full px-4 py-2 bg-[#1C1C1E] border border-[#3A3A3C] rounded-md placeholder-[#888] text-white focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             )}
             <input
@@ -114,28 +111,30 @@ const Signup = () => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 bg-[#1C1C1E] border border-[#3A3A3C] rounded-md placeholder-[#888] text-white focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+              className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 bg-[#1C1C1E] border border-[#3A3A3C] rounded-md placeholder-[#888] text-white focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+              className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
             <button
               type="submit"
-              className="w-full py-2 bg-[#D4AF37] text-[#1C1C1E] font-semibold rounded-md hover:bg-[#e0c97d] transition duration-300"
+              className="w-full py-2 bg-emerald-500 text-white font-semibold rounded-md hover:bg-emerald-600 transition duration-300"
             >
               {isSignUp ? "Create Account" : "Log In"}
             </button>
-            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+            {error && (
+              <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+            )}
           </form>
 
           {!isSignUp && (
-            <p className="mt-4 text-sm text-center text-[#A6A6A6]">
+            <p className="mt-4 text-sm text-center text-gray-500">
               Forgot your password?{" "}
-              <a href="#" className="text-[#D4AF37] hover:underline">
+              <a href="#" className="text-emerald-500 hover:underline">
                 Reset here
               </a>
             </p>
@@ -143,7 +142,6 @@ const Signup = () => {
         </div>
       </div>
 
-      {/* Modal */}
       {showModal && (
         <ConfirmationModal
           message={modalMessage}
@@ -152,7 +150,6 @@ const Signup = () => {
         />
       )}
 
-      {/* Footer */}
       <Footer />
     </div>
   );

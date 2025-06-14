@@ -4,58 +4,54 @@ import { Link } from 'react-router-dom';
 
 const banners = [
   {
-    title: "Welcome to Shirtopia",
-    subtitle: "Discover premium t-shirts that match your legacy.",
-    imageUrl: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
-    buttonText: "Shop Now",
-    link: "/shop",
+    title: "Elegant Earrings",
+    subtitle: "Where sparkle meets sophistication — find your perfect pair.",
+    imageUrl: "https://cdn.shopify.com/s/files/1/0563/9621/0499/products/GoldPlatedEarrings.jpg?v=1640707782",
+    buttonText: "Browse Collection",
+    link: "/shop-earrings",
   },
   {
-    title: "Summer Refinement",
-    subtitle: "Up to 40% off — effortless elegance for warmer days.",
-    imageUrl: "https://images.unsplash.com/photo-1585386959984-a4155224a1a6",
-    buttonText: "Explore Sale",
-    link: "/summer-sale",
+    title: "Radiant Deals",
+    subtitle: "Enjoy up to 50% off — indulge without compromise.",
+    imageUrl: "https://cdn.shopify.com/s/files/1/0661/4167/8516/products/GoldenDrops.jpg?v=1678862646",
+    buttonText: "Explore Offers",
+    link: "/earring-sale",
   },
   {
-    title: "New Classics",
-    subtitle: "Tailored arrivals with timeless appeal.",
-    imageUrl: "https://images.unsplash.com/photo-1555529669-93bcb38e1f82",
-    buttonText: "View Collection",
-    link: "/new",
+    title: "New Arrivals",
+    subtitle: "Timeless drops & modern studs — just landed.",
+    imageUrl: "https://cdn.shopify.com/s/files/1/0680/4150/7116/products/IMG_9210.jpg?v=1672917796",
+    buttonText: "See What's New",
+    link: "/earrings-new",
   },
 ];
 
 export default function BannerCarousel() {
   return (
-    <div className="mt-10">
+    <div className="mt-8">
       <Carousel
         showThumbs={false}
         infiniteLoop
         autoPlay
-        interval={6000}
+        interval={7000}
         showStatus={false}
-        showArrows={true}
+        showArrows={false}
         swipeable
         emulateTouch
       >
         {banners.map((banner, idx) => (
-          <div
-            key={idx}
-            className="relative h-[65vh] md:h-[80vh] bg-cover bg-center"
-            style={{ backgroundImage: `url(${banner.imageUrl})` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1C1C1E]/90 via-[#2D2D2D]/80 to-[#3C3C3C]/80 flex items-center justify-center text-center px-6">
-              <div className="max-w-3xl">
-                <h2 className="text-[#D4AF37] text-4xl md:text-6xl font-serif font-bold mb-4 tracking-wide">
+          <div key={idx} className="relative h-[65vh] md:h-[85vh] bg-cover bg-center" style={{ backgroundImage: `url(${banner.imageUrl})` }}>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex items-center">
+              <div className="px-8 md:px-16 max-w-2xl text-left">
+                <h2 className="text-4xl md:text-5xl font-serif text-emerald-300 font-bold mb-4 drop-shadow">
                   {banner.title}
                 </h2>
-                <p className="text-[#EEEBDD] text-lg md:text-xl mb-8 font-medium italic">
+                <p className="text-gray-200 text-lg md:text-xl mb-6 leading-relaxed">
                   {banner.subtitle}
                 </p>
                 <Link
                   to={banner.link}
-                  className="inline-block border-2 border-[#D4AF37] text-[#D4AF37] font-semibold px-8 py-3 rounded-full hover:bg-[#D4AF37] hover:text-black transition-all duration-300"
+                  className="inline-block px-6 py-3 border border-emerald-400 text-emerald-400 font-medium rounded-full hover:bg-emerald-400 hover:text-black transition duration-300"
                 >
                   {banner.buttonText}
                 </Link>

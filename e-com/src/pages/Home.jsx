@@ -25,52 +25,65 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[#F5F5F2] min-h-screen font-serif text-[#1C1C1E]">
-      {/* Header */}
-      <header className="py-16 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold mb-4 text-[#1C1C1E] tracking-tight">
-          Welcome to <span className="text-[#D4AF37]">Shirtopia</span>
+    <div className="bg-[#FDFCFB] text-[#1C1C1E] font-serif">
+      {/* Hero Section */}
+      <section className="text-center py-20 px-4 md:px-8 bg-gradient-to-b from-white via-[#FAFAF9] to-[#F5F5F5]">
+        <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight mb-6">
+          Elevate Your Look with <span className="text-emerald-400">Elegant Earrings</span>
         </h1>
-        <p className="text-lg md:text-xl text-[#4A4A4A] font-medium max-w-2xl mx-auto">
-          Timeless essentials. Uncompromising comfort. Tailored to those who know better.
+        <p className="max-w-2xl mx-auto text-[#4A4A4A] text-lg md:text-xl font-medium">
+          Crafted with precision, designed for grace. Discover earrings that speak your style.
         </p>
-      </header>
+      </section>
 
-      {/* Products Grid */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 mb-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
+      {/* Products Section */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1C1C1E] mb-3">
+            Our Signature Collection
+          </h2>
+          <p className="text-[#666] text-base md:text-lg">
+            Each pair curated for timeless sparkle and elegance.
+          </p>
+        </div>
+
+        <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {products.length === 0 ? (
-            <p className="text-[#8C8C8C] col-span-full text-center text-xl">
-              Loading products...
+            <p className="text-center col-span-full text-xl text-[#888]">
+              Loading earrings...
             </p>
           ) : (
-            products.map((product) => (
+            products.map(product => (
               <div
                 key={product.id}
-                className="bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-lg transition duration-300"
+                className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 p-5 flex flex-col items-center text-center"
               >
-                <img
-                  src={product.image_url}
-                  alt={product.name}
-                  className="w-full h-64 object-cover rounded-xl mb-4 border border-[#E0E0E0]"
-                />
-                <h2 className="text-2xl font-semibold text-[#2D2D2D] mb-2">
+                <div className="overflow-hidden rounded-xl mb-4 w-full h-64">
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-[#1C1C1E] mb-1">
                   {product.name}
-                </h2>
-                <p className="text-[#555] italic mb-4 text-sm">
+                </h3>
+                <p className="text-sm text-[#666] italic mb-3">
                   {product.description}
                 </p>
-                <p className="text-xl font-bold text-[#D4AF37]">${product.price}</p>
+                <p className="text-lg font-bold text-emerald-500">${product.price}</p>
               </div>
             ))
           )}
         </div>
       </section>
 
+      {/* Carousel Section */}
       <section className="mb-24 px-4 md:px-8">
         <BannerCarousel />
       </section>
 
+      {/* Footer */}
       <Footer />
     </div>
   );
