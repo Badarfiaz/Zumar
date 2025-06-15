@@ -21,11 +21,9 @@ export default function Footer() {
             Quick Links
           </h3>
           <ul className="space-y-3 text-[#444] text-sm md:text-base">
+             
             <li>
               <a href="/" className="hover:text-emerald-500 transition duration-300">Home</a>
-            </li>
-            <li>
-              <a href="/shop" className="hover:text-emerald-500 transition duration-300">Shop</a>
             </li>
             <li>
               <a href="/about" className="hover:text-emerald-500 transition duration-300">About Us</a>

@@ -8,21 +8,21 @@ const banners = [
     subtitle: "Where sparkle meets sophistication — find your perfect pair.",
     imageUrl: "https://cdn.shopify.com/s/files/1/0563/9621/0499/products/GoldPlatedEarrings.jpg?v=1640707782",
     buttonText: "Browse Collection",
-    link: "/shop-earrings",
+    link: "/",
   },
   {
     title: "Radiant Deals",
     subtitle: "Enjoy up to 50% off — indulge without compromise.",
     imageUrl: "https://cdn.shopify.com/s/files/1/0661/4167/8516/products/GoldenDrops.jpg?v=1678862646",
     buttonText: "Explore Offers",
-    link: "/earring-sale",
+    link: "/women",
   },
   {
     title: "New Arrivals",
     subtitle: "Timeless drops & modern studs — just landed.",
     imageUrl: "https://cdn.shopify.com/s/files/1/0680/4150/7116/products/IMG_9210.jpg?v=1672917796",
     buttonText: "See What's New",
-    link: "/earrings-new",
+    link: "/jewlery",
   },
 ];
 

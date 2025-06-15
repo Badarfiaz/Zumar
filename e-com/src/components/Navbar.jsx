@@ -38,6 +38,13 @@ function Navbar() {
   const { cartItems } = useCart();
   const navigate = useNavigate();
 
+  // Navigation links configuration
+  const navLinks = [
+    { path: "/", name: "Home", protected: false },
+    { path: "/jewelry", name: "Jewelry", protected: false },
+    { path: "/women", name: "Women's Collection", protected: false },
+   ];
+
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -48,7 +55,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     await signOut(getAuth());
-    navigate("/Sign");
+    navigate("/sign");
   };
 
   const confirmSignOut = async () => {
@@ -59,6 +66,9 @@ function Navbar() {
   const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
   const closeSidebar = () => setIsSidebarOpen(false);
 
+  // Filter links based on authentication status
+  const filteredLinks = navLinks.filter(link => !link.protected || user);
+
   return (
     <>
       <nav className="bg-[#111827] text-white px-6 py-4 shadow-md flex justify-between items-center">
@@ -67,28 +77,50 @@ function Navbar() {
             <Bars3Icon className="h-6 w-6 text-emerald-400" />
           </button>
           <Link to="/" className="text-2xl font-bold font-mono text-emerald-400 hover:text-emerald-300 transition">
-            Shirtopia
+            LuxeBoutique
           </Link>
         </div>
 
+        {/* Desktop Navigation */}
         <ul className="hidden md:flex space-x-6 text-sm font-medium items-center">
-          <li><Link to="/home" className="hover:text-emerald-400 transition">Home</Link></li>
-          <li><Link to="/t" className="hover:text-emerald-400 transition">T-Shirts</Link></li>
-          <li><Link to="/Polo" className="hover:text-emerald-400 transition">Polos</Link></li>
-          <li><Link to="/shop" className="hover:text-emerald-400 transition">Shop</Link></li>
+          {filteredLinks.map((link) => (
+            <li key={link.path}>
+              <Link 
+                to={link.path} 
+                className="hover:text-emerald-400 transition"
+                onClick={closeSidebar}
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
           <li>
             {user ? (
-              <button onClick={() => setShowModal(true)} className="hover:text-emerald-400 transition">Sign Out</button>
+              <button 
+                onClick={() => setShowModal(true)} 
+                className="hover:text-emerald-400 transition"
+              >
+                Sign Out
+              </button>
             ) : (
-              <Link to="/Sign" className="hover:text-emerald-400 transition">Sign Up</Link>
+              <Link 
+                to="/sign" 
+                className="hover:text-emerald-400 transition"
+                onClick={closeSidebar}
+              >
+                Sign In
+              </Link>
             )}
           </li>
         </ul>
 
+        {/* User and Cart Icons */}
         <div className="flex items-center space-x-4">
-          <Link to="/user">
-            <UserIcon className="h-6 w-6 text-emerald-400 hover:text-emerald-300 transition" />
-          </Link>
+          {user && (
+            <Link to="/user">
+              <UserIcon className="h-6 w-6 text-emerald-400 hover:text-emerald-300 transition" />
+            </Link>
+          )}
           <Link to="/cart" className="relative">
             <ShoppingCartIcon className="h-6 w-6 text-emerald-400 hover:text-emerald-300 transition" />
             {cartItems.length > 0 && (
@@ -100,38 +132,53 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* Sidebar Overlay */}
+      {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-60 z-40 md:hidden" onClick={closeSidebar} />
       )}
 
-      {/* Sidebar */}
+      {/* Mobile Sidebar */}
       <div className={`fixed top-0 left-0 w-64 h-full z-50 bg-[#111827] backdrop-blur-md border-r border-gray-700 shadow-lg transform transition-transform duration-300 md:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <h2 className="text-xl font-mono font-bold text-emerald-400">Shirtopia</h2>
+          <h2 className="text-xl font-mono font-bold text-emerald-400">LuxeBoutique</h2>
           <button onClick={toggleSidebar}>
             <XMarkIcon className="h-6 w-6 text-white" />
           </button>
         </div>
         <ul className="flex flex-col space-y-4 text-white text-base p-5">
-          <li><Link to="/home" onClick={closeSidebar}>Home</Link></li>
-        
-          <li><Link to="/t" onClick={closeSidebar}>T-Shirts</Link></li>
-          <li><Link to="/Polo" onClick={closeSidebar}>Polos</Link></li>
-          <li><Link to="/shop" onClick={closeSidebar}>Shop</Link></li>
-          <li><Link to="/cart" onClick={closeSidebar}>Cart</Link></li>
+          {filteredLinks.map((link) => (
+            <li key={link.path}>
+              <Link 
+                to={link.path} 
+                onClick={closeSidebar}
+                className="block py-2 hover:text-emerald-400 transition"
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
           <li>
             {user ? (
-              <button onClick={() => { closeSidebar(); setShowModal(true); }}>
+              <button 
+                onClick={() => { closeSidebar(); setShowModal(true); }}
+                className="block py-2 hover:text-emerald-400 transition text-left w-full"
+              >
                 Sign Out
               </button>
             ) : (
-              <Link to="/Sign" onClick={closeSidebar}>Sign Up</Link>
+              <Link 
+                to="/sign" 
+                onClick={closeSidebar}
+                className="block py-2 hover:text-emerald-400 transition"
+              >
+                Sign In
+              </Link>
             )}
           </li>
         </ul>
       </div>
 
+      {/* Sign Out Confirmation Modal */}
       {showModal && (
         <ConfirmationModal
           message="Are you sure you want to sign out?"

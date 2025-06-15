@@ -28,7 +28,7 @@ export default function Banner({ title, subtitle, imageUrl, buttonText, link }) 
           </p>
 
           <Link
-            to={link || "/shop"}
+            to={link || "/"}
             className="
               inline-block mt-4 bg-emerald-500 text-white font-semibold 
               px-6 py-3 rounded-full shadow-md hover:bg-emerald-600 

@@ -2,15 +2,13 @@ import { useState } from 'react'
 import { Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Landing from './pages/Landing';
-import Shop from './pages/Shop';
 import Signup from './pages/Signup';
 import ProtectedRoute from './components/ProtectedRoute';
 import Add from './pages/Add';
-import T from './pages/T';
-import Polo from './pages/Polo';
+import Jewelry from './pages/Jewelry';
 import User from './pages/User';
-
+import WomenCol from "./pages/WomenCol"
+import Footer from './components/Footer';
 
 
 function App() {
@@ -19,24 +17,21 @@ function App() {
       <div className="min-h-screen bg-gray-100">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
+           <Route path="/" element={<Home />} />
         
-          <Route path="/t" element={
+          <Route path="/jewelry" element={
            
-              <T />
+              <Jewelry/>
            
           } />
-          <Route path="/polo" element={
+          <Route path="/women" element={
           
-              <Polo />
+              <WomenCol/>
          
           } />
-          <Route path="/shop" element={
-            <ProtectedRoute>
-              <Shop />
-            </ProtectedRoute>
-          } />
+         
+
+          
           <Route path="/cart" element={
             <ProtectedRoute>
               <Add />
@@ -52,6 +47,7 @@ function App() {
       
          
         </Routes>
+        <Footer/>
       </div>
     </>
   )
